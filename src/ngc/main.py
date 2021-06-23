@@ -444,7 +444,7 @@ def compute_coincidence_index(kappa_plaintext):
     if summary["Spaces"]:
         alphabet_size += 1
     if summary["Other spaces"]:
-        alphabet_size += len(string.whitespace - 1)
+        alphabet_size += len(string.whitespace) - 1
     if summary["Control characters"]:
         alphabet_size += 29
 
