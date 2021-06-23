@@ -1,0 +1,182 @@
+.Dd June 23, 2021
+.Dt NGC 1
+.Os
+.Sh NAME
+.Nm ngc
+.Nd n-grams count
+.Sh SYNOPSIS
+.Nm
+.Op Fl b|--block
+.Op Fl c|--convert Ar ARGS
+.Op Fl d|--discard Ar ARGS
+.Op Fl l|--length Ar ARG
+.Op Fl p|--partial Ar ARG
+.Op Fl q|--quiet
+.Op Fl s|--summary
+.Op Fl t|--text
+.Op Fl w|--word
+.Op Fl -debug
+.Op Fl -help|-?
+.Op Fl -version
+.Op Fl -
+.Op Ar filename ...
+.Sh DESCRIPTION
+The
+.Nm
+utility is used for counting the number of occurrences and computing the frequency of n-grams in cryptanalysis.
+.Pp
+For n=1, the n-gram is simply a letter or character.
+For n=2, the n-gram is called a bigram or digraph.
+And so on...
+.Pp
+The
+.Fl l
+option is for setting the length of the n-gram (the default is 1 character), and the
+.Fl b
+option for using a fixed-window instead of the default sliding one ("ABCD" giving "AB" and "CD" instead of "AB", "BC" and "CD").
+.Pp
+The
+.Fl c
+option is used to perform some prior conversions on your input data:
+Unicode characters removal (especially accented ones),
+upper to lower case conversions (or the reverse),
+extra spaces removal (this last one is performed after other conversions).
+.Pp
+You can also use the
+.Fl d
+option to discard selected categories of characters (for example if you only want to keep letters).
+.Pp
+If you want to check your input data after these transformations, you can use the
+.Fl t
+option to print it.
+.Pp
+If you want to print only this, you can use the
+.Fl q
+option.
+.Pp
+And if you want to print some stats on the remaining characters, you can print a summary with the
+.Fl s
+option. This summary also includes the 
+.Em coincidence index
+of your input text.
+.Pp
+Finally, you can use the
+.Fl w
+option to process your input word by word instead of line by line.
+If you selected the fixed-window
+.Fl b
+option, you can decide what to do with partial blocks with the
+.Fl p
+option: between keeping them as-is, discarding them, or filling them with spaces in order to have only n-grams of the same length.
+.Pp
+The
+.Nm
+utility processes all the indicated file names as one file. If none are provided, it processes the standard input, thus behaving as a filter.
+.Ss OPTIONS
+.Op Fl b|--block
+Use fixed- instead of sliding-windows blocks
+.Pp
+.Op Fl c|--convert Ar ARGS
+Convert text input. A combination of:
+.Bl -bullet
+.It
+ARG=a / Unicode characters to ASCII (remove accents)
+.It
+ARG=l / Upper case letters to lower
+.It
+ARG=u / Lower case letters to upper
+.It
+ARG=s / Spaces-like characters to 1 space
+.It
+Warning: ARGS l and u can't be used at the same time
+.El
+.Pp
+.Op Fl d|--discard Ar ARGS
+Discard characters. A combination of:
+.Bl -bullet
+.It
+ARG=U / Unicode characters
+.It
+ARG=u / Upper case letters
+.It
+ARG=l / Lower case letters
+.It
+ARG=L / All letters
+.It
+ARG=c / Connection symbols (apostrophe and hyphen)
+.It
+ARG=d / Digits
+.It
+ARG=p / Punctuation (.,;:?!)
+.It
+ARG=o / Other printable symbols
+.It
+ARG=s / Spaces (space, tab, return, formfeed, vtab)
+.It
+ARG=n / Non printable control characters
+.El
+.Pp
+.Op Fl l|--length Ar ARG
+Length of the n-gram. Defaults to 1
+.Pp
+.Op Fl p|--partial Ar ARGS
+What to do with partial blocks? One among:
+.Bl -bullet
+.It
+ARG=d / Discard
+.It
+ARG=k / Keep as-is (default)
+.It
+ARG=j / Keep but right-justify with spaces
+.El
+.Pp
+.Op Fl q|--quiet
+Don't show occurrences and frequency by n-gram
+.Pp
+.Op Fl s|--summary
+Show a summary of what was processed
+.Pp
+.Op Fl t|--text
+Show modified text input
+.Pp
+.Op Fl w|--word
+Respect Word boundaries (delimited by spaces)
+.Pp
+.Op Fl -debug
+Enable debug mode
+.Pp
+.Op Fl -help|-?
+Print usage and this help message and exit
+.Pp
+.Op Fl -version
+Print version and exit
+.Pp
+.Op Fl -
+Options processing terminator
+.Sh ENVIRONMENT
+The
+.Ev NGC_DEBUG
+environment variable can also be set to any value to enable debug mode.
+.Sh EXIT STATUS
+.Ex -std ngc
+.Sh SEE ALSO
+.Xr wc 1 ,
+.Xr caesar 1
+.Pp
+.Lk https://en.wikipedia.org/wiki/Frequency_analysis Frequency analysis
+.Pp
+.Lk https://en.wikipedia.org/wiki/Index_of_coincidence Index of coincidence
+.Sh STANDARDS
+The
+.Nm
+utility is not a standard UNIX/POSIX command.
+.Pp
+It tries to follow the PEP 8 style guide for Python code.
+.Sh HISTORY
+This utility was made for
+.Lk https://github.com/HubTou/PNU [The PNU project]
+while playing with a reimplementation of the caesar(1) utility.
+.Sh LICENSE
+This utility is available under the 3-clause BSD license.
+.Sh AUTHORS
+.An Hubert Tournier
