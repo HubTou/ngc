@@ -56,4 +56,4 @@ upload:
 	python -m twine upload dist/*
 
 distclean:
-	rm -rf build dist man/${NAME}.1.gz src/${NAME}/*.egg-info
+	rm -rf build dist man/${NAME}.1.gz src/*.egg-info
