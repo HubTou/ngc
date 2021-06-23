@@ -14,7 +14,7 @@ import sys
 import unicode2ascii
 
 # Version string used by the what(1) and ident(1) commands:
-ID = "@(#) $Id: ngc - n-grams count v1.0.0 (June 23, 2021) by Hubert Tournier $"
+ID = "@(#) $Id: ngc - n-grams count v1.0.1 (June 24, 2021) by Hubert Tournier $"
 
 # Default parameters. Can be superseded by command line options
 parameters = {
