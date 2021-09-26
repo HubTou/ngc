@@ -14,7 +14,7 @@ import sys
 import unicode2ascii
 
 # Version string used by the what(1) and ident(1) commands:
-ID = "@(#) $Id: ngc - n-grams count v1.0.1 (June 24, 2021) by Hubert Tournier $"
+ID = "@(#) $Id: ngc - n-grams count v1.0.2 (September 26, 2021) by Hubert Tournier $"
 
 # Default parameters. Can be superseded by command line options
 parameters = {
@@ -73,6 +73,14 @@ summary = {
     "All characters": 0,
     "All n-grams": 0
     }
+
+
+################################################################################
+def initialize_debugging(program_name):
+    """Debugging set up"""
+    console_log_format = program_name + ": %(levelname)s: %(message)s"
+    logging.basicConfig(format=console_log_format, level=logging.DEBUG)
+    logging.disable(logging.INFO)
 
 
 ################################################################################
@@ -455,14 +463,12 @@ def compute_coincidence_index(kappa_plaintext):
 def main():
     """The program's main entry point"""
     program_name = os.path.basename(sys.argv[0])
-    console_log_format = program_name + ": %(levelname)s: %(message)s"
-    logging.basicConfig(format=console_log_format, level=logging.DEBUG)
-    logging.disable(logging.INFO)
 
-    exit_status = 0
-
+    initialize_debugging(program_name)
     process_environment_variables()
     arguments = process_command_line()
+
+    exit_status = 0
 
     # Reading from files whose name were given as arguments:
     if len(arguments):

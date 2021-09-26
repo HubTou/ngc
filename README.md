@@ -108,3 +108,4 @@ This utility is available under the [3-clause BSD license](https://opensource.or
 
 ## AUTHORS
 [Hubert Tournier](https://github.com/HubTou)
+
